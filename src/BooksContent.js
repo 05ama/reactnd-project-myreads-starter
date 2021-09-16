@@ -35,7 +35,7 @@ class BooksContent extends React.Component {
             <h1>MyReads</h1>
           </div>
           <div className="list-books-content">
-            {shelves.map((bookShelf)=><BookShelf books={
+            {shelves.map((bookShelf)=><BookShelf key={bookShelf} books={
               books.filter((book)=>{return book.shelf.toLowerCase() === bookShelf.replace(/ /g,'').toLowerCase()})
             } bookShelf = {bookShelf} BookShelfChanged={this.BookShelfChanged}/>)}
           </div>
