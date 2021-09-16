@@ -3,13 +3,15 @@ import * as BooksAPI from './BooksAPI'
 
 class BookShelfChanger extends React.Component {
   state = {
-    shelf:""
+    shelf:"none"
   }
 
   componentDidMount() {
-    this.setState(()=>({
-      shelf:this.props.shelf
-    }))
+    BooksAPI.get(this.props.book.id).then((book)=>{
+      if(book.shelf !== "none"){
+        this.setState({shelf:book.shelf})
+      }
+    });
   }
 
   setShelf = (event)=>{

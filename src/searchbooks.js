@@ -1,44 +1,57 @@
 import React from 'react'
-import {Route} from 'react-router-dom' 
-import './App.css'
-import BooksContent from './BooksContent'
+import {Link} from 'react-router-dom' 
+import * as BooksAPI from './BooksAPI'
+import Book from './Book'
 
-
-class BooksApp extends React.Component {
+class SearchBooks extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false
+    books:[]
   }
   
+  updateQuery = (query) => {
+    if(query !== "")
+    {
+      BooksAPI.search(query).then((books)=>{
+        this.setState({
+            books:books
+        })
+      })
+    }else{
+      this.setState({
+        books:[]
+      })      
+    }
+  }
+
+  BookShelfChanged = ()=>{}
+
   render() {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
+          <Link to='/'>
+            <button className="close-search">Close</button>
+          </Link>
           <div className="search-books-input-wrapper">
-            {/*
-              NOTES: The search from BooksAPI is limited to a particular set of search terms.
-              You can find these search terms here:
-              https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-              However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-              you don't find a specific author or title. Every search is limited by search terms.
-            */}
-            <input type="text" placeholder="Search by title or author"/>
-
+            <input 
+              type="text" 
+              placeholder="Search by title or author"
+              onChange={(event) => this.updateQuery(event.target.value)}
+            />
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid"></ol>
+          <ol className="books-grid">
+            {this.state.books!== undefined && 
+            this.state.books.error === undefined &&
+            this.state.books.length>0? 
+              this.state.books.map((book)=><li key={book.id}><Book bookInfo={book} BookShelfChanged={this.BookShelfChanged}/></li>):
+              ""}
+          </ol>
         </div>
       </div>
     )
   }
 }
 
-export default BooksApp
+export default SearchBooks
