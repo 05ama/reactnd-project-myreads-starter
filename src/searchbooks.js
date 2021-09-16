@@ -18,12 +18,16 @@ class SearchBooks extends React.Component {
       })
     }else{
       this.setState({
-        books:[]
+        books:[] /* when search inputs is null remove all results */
       })      
     }
   }
 
-  BookShelfChanged = ()=>{}
+  BookShelfChanged = ()=>{
+    /* Dummy function No action is required
+       Created to match the Props for Book component
+    */
+  } 
 
   render() {
     return (
@@ -42,9 +46,9 @@ class SearchBooks extends React.Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.books!== undefined && 
-            this.state.books.error === undefined &&
-            this.state.books.length>0? 
+            {this.state.books!== undefined && /* Valid book state  */
+            this.state.books.error === undefined && /* book is found in search  */
+            this.state.books.length>0? /* there is at least one book found  */
               this.state.books.map((book)=><li key={book.id}><Book bookInfo={book} BookShelfChanged={this.BookShelfChanged}/></li>):
               ""}
           </ol>

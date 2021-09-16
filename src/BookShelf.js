@@ -4,7 +4,7 @@ import Book from './Book'
 
 class BookShelf extends React.Component {
   BookShelfChanged = ()=>{
-    this.props.BookShelfChanged();
+    this.props.BookShelfChanged(); /* send Notification to caller component indicating Book shelf change */
   }
   
   render() {

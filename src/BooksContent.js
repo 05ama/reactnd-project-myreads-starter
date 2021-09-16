@@ -9,7 +9,7 @@ class BooksContent extends React.Component {
     shelves:["Currently Reading", "Want to Read", "Read"]
   }
 
-  componentDidMount() {
+  componentDidMount() { /* Update the state with the correct data fetched from the server */
     BooksAPI.getAll().then((books)=>{
       this.setState(
         {
@@ -18,7 +18,7 @@ class BooksContent extends React.Component {
     })
   }
 
-  BookShelfChanged = ()=>{
+  BookShelfChanged = ()=>{  /* Re-render the component with the new fetched data from the server */
     BooksAPI.getAll().then((books)=>{
       this.setState(
         {
@@ -36,7 +36,7 @@ class BooksContent extends React.Component {
           </div>
           <div className="list-books-content">
             {shelves.map((bookShelf)=><BookShelf key={bookShelf} books={
-              books.filter((book)=>{return book.shelf.toLowerCase() === bookShelf.replace(/ /g,'').toLowerCase()})
+              books.filter((book)=>{return book.shelf.toLowerCase() === bookShelf.replace(/ /g,'').toLowerCase()})/* Filter books for each shelf */
             } bookShelf = {bookShelf} BookShelfChanged={this.BookShelfChanged}/>)}
           </div>
           <div className="open-search">
