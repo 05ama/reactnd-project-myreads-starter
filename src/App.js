@@ -3,6 +3,9 @@ import React from 'react'
 import './App.css'
 import BooksContent from './BooksContent'
 
+
+const bookShelves = ["Currently Reading", "Want to Read", "Read"]
+
 class BooksApp extends React.Component {
   state = {
     /**
@@ -13,7 +16,7 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false
   }
-
+  
   render() {
     return (
       <div className="app">
@@ -21,7 +24,7 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            <BooksContent/>
+            <BooksContent BookShelves={bookShelves}/>
           </div>
       </div>
     )

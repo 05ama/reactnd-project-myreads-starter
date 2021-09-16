@@ -9,7 +9,7 @@ class BooksContent extends React.Component {
   render() {
     return (
             <div className="list-books-content">
-              <BookShelf/>
+              {this.props.BookShelves.map((bookShelf)=>(<BookShelf BookShelf={bookShelf} key={bookShelf}/>))}
             </div>
         )}
 }
