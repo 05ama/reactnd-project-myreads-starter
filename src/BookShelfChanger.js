@@ -15,11 +15,11 @@ class BookShelfChanger extends React.Component {
   setShelf = (event)=>{
     let NewShelf = event.target.value;
     BooksAPI.update(this.props.book,NewShelf);
-    this.setState(()=>({shelf:NewShelf}))
+    this.setState(()=>({shelf:NewShelf}));
+    this.props.BookShelfChanged();
   }
 
   render() {
-    //console.log(this.state.shelf)
     return (
             <div className="book-shelf-changer">
               <select onChange={this.setShelf} value={this.state.shelf}>

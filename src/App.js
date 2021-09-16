@@ -1,10 +1,8 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import {Route} from 'react-router-dom' 
 import './App.css'
 import BooksContent from './BooksContent'
 
-
-const bookShelves = ["Currently Reading", "Want to Read", "Read"]
 
 class BooksApp extends React.Component {
   state = {
@@ -20,12 +18,10 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <BooksContent BookShelves={bookShelves}/>
-          </div>
+        <Route exact path='/' render ={()=>(<BooksContent/>)}> </Route>
+        <Route path='/search' render={() => (
+          <BooksContent/>
+          )}></Route>
       </div>
     )
   }
