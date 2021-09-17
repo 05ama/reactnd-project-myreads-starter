@@ -1,4 +1,5 @@
 import React from 'react'
+import debounce from 'lodash/debounce'
 import {Link} from 'react-router-dom' 
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
@@ -7,8 +8,9 @@ class SearchBooks extends React.Component {
   state = {
     books:[]
   }
-  
+
   updateQuery = (query) => {
+    console.log(query)
     if(query !== "")
     {
       BooksAPI.search(query).then((books)=>{
@@ -40,7 +42,7 @@ class SearchBooks extends React.Component {
             <input 
               type="text" 
               placeholder="Search by title or author"
-              onChange={(event) => this.updateQuery(event.target.value)}
+              onChange={debounce((event) => this.updateQuery(event.target.value),25000,{trailing:false,leading:true})}/* add debounce */
             />
           </div>
         </div>
