@@ -29,9 +29,12 @@ class SearchBooks extends React.Component {
        Created to match the Props for Book component
     */
   } 
-
+  _isMounted = true;
+  componentWillUnmount(){
+    this._isMounted = false;
+  }
   render() {
-    return (
+    return this._isMounted&&(
       <div className="search-books">
         <div className="search-books-bar">
           <Link to='/'>

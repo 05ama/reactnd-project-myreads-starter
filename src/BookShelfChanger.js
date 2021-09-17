@@ -14,6 +14,11 @@ class BookShelfChanger extends React.Component {
     shelf:"none"
   }
 
+  _isMounted = true;
+  componentWillUnmount(){
+    this._isMounted = false;
+  }
+
   windowReload = () =>{
     const Location = this.props.location.pathname; /* get page location */
     if(Location === "/")
@@ -40,7 +45,7 @@ class BookShelfChanger extends React.Component {
   }
 
   render() {
-    return (
+    return this._isMounted&&(
             <div className="book-shelf-changer">
               {
                 /*

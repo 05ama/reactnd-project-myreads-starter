@@ -8,7 +8,12 @@ class BooksContent extends React.Component {
     books:[],
     shelves:["Currently Reading", "Want to Read", "Read"]
   }
-
+  
+  _isMounted = true;
+  componentWillUnmount(){
+    this._isMounted = false;
+  }
+  
   componentDidMount() { /* Update the state with the correct data fetched from the server */
     BooksAPI.getAll().then((books)=>{
       this.setState(
@@ -29,7 +34,7 @@ class BooksContent extends React.Component {
 
   render() {
     const {shelves, books} = this.state;
-    return (
+    return this._isMounted&&(
         <div className="list-books">
           <div className="list-books-title">
             <h1>MyReads</h1>

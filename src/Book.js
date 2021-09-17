@@ -7,9 +7,14 @@ class Book extends React.Component {
     this.props.BookShelfChanged();  /* send Notification to caller component indicating Book shelf change */
   }
 
+  _isMounted = true;
+  componentWillUnmount(){
+    this._isMounted = false;
+  }
+
   render() {
     const {title, authors, imageLinks, shelf} = this.props.bookInfo;
-    return (
+    return this._isMounted&&(
             <div className="book">
               <div className="book-top">
                 <div className="book-cover" 
