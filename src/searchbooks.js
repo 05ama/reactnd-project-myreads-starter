@@ -10,7 +10,6 @@ class SearchBooks extends React.Component {
   }
 
   updateQuery = (query) => {
-    console.log(query)
     if(query !== "")
     {
       BooksAPI.search(query).then((books)=>{
