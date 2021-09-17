@@ -1,4 +1,5 @@
 import React from 'react'
+import {withRouter} from 'react-router-dom' 
 import * as BooksAPI from './BooksAPI'
 
 const Options = {
@@ -13,6 +14,16 @@ class BookShelfChanger extends React.Component {
     shelf:"none"
   }
 
+  windowReload = () =>{
+    const Location = this.props.location.pathname; /* get page location */
+    if(Location === "/")
+    {
+      window.location.reload(true); /* Reload Main page */
+    }else{
+      /* No need to reload */
+    }
+  }
+
   componentDidMount() {
     BooksAPI.get(this.props.book.id).then((book)=>{
       if(book.shelf !== "none"){          /* none is not displayed as a shelf */
@@ -23,7 +34,7 @@ class BookShelfChanger extends React.Component {
 
   setShelf = (event)=>{
     let NewShelf = event.target.value;
-    BooksAPI.update(this.props.book,NewShelf); /* Update the Book shelf in the back end server */
+    BooksAPI.update(this.props.book,NewShelf).then(this.windowReload); /* Update the Book shelf in the back end server */
     this.setState(()=>({shelf:NewShelf})); /* Update component state */
     this.props.BookShelfChanged();  /* send Notification to caller component indicating Book shelf change */
   }
@@ -55,4 +66,4 @@ class BookShelfChanger extends React.Component {
         )}
 }
 
-export default BookShelfChanger
+export default withRouter(BookShelfChanger)
