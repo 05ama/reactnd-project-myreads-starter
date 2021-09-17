@@ -32,16 +32,16 @@ class BookShelfChanger extends React.Component {
   componentDidMount() {
     BooksAPI.get(this.props.book.id).then((book)=>{
       if(book.shelf !== "none"){          /* none is not displayed as a shelf */
-        this.setState({shelf:book.shelf}) /* Update book shelf */
+        this._isMounted&&this.setState({shelf:book.shelf}) /* Update book shelf */
       }
     });
   }
 
   setShelf = (event)=>{
     let NewShelf = event.target.value;
-    BooksAPI.update(this.props.book,NewShelf).then(this.windowReload); /* Update the Book shelf in the back end server */
+    BooksAPI.update(this.props.book,NewShelf).then(this._isMounted&&this.windowReload); /* Update the Book shelf in the back end server */
     this.setState(()=>({shelf:NewShelf})); /* Update component state */
-    this.props.BookShelfChanged();  /* send Notification to caller component indicating Book shelf change */
+    this._isMounted&&this.props.BookShelfChanged();  /* send Notification to caller component indicating Book shelf change */
   }
 
   render() {
